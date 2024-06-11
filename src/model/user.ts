@@ -10,7 +10,7 @@ const MessageSchema: Schema<Message> = new Schema({
     type: String,
     required: true,
   },
-  createAT: {
+  createdAt: {
     type: Date,
     require: true,
     default: Date.now,
@@ -50,7 +50,7 @@ const userSchema: Schema<user> = new Schema({
   isVerified: {
 type:Boolean,
 default:false,
-  }
+  },
   isAcceptingMsg: { type: Boolean,default:true },
   messages: [MessageSchema]
 });
