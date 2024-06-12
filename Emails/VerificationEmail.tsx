@@ -54,13 +54,13 @@ export default function VerificationEmail({
           </Text>
         </Row>
         {/* <Row>
-            <Button
-              href={`http://localhost:3000/verify/${username}`}
-              style={{ color: '#61dafb' }}
-            >
-              Verify here
-            </Button>
-          </Row> */}
+          <Button
+            href={`http://localhost:3000/verify/${username}`}
+            style={{ color: '#61dafb' }}
+          >
+            Verify here
+          </Button>
+        </Row> */}
       </Section>
     </Html>
   );
