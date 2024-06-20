@@ -19,27 +19,44 @@ export const authOptions: NextAuthOptions = {
           const user = await UserModal.findOne({
             $or: [
               { email: credentials.identifier },
-              { username: credentials.identifier }
-            ]
+              { username: credentials.identifier },
+            ],
           });
 
           if (!user) {
             throw new Error("Invalid email or password");
           }
-          if(!user.isVerified){
-throw new Error('please Verify Account');
+          if (!user.isVerified) {
+            throw new Error("please Verify Account");
           }
-         const PassCorrection =  await bcrypt.compare(user.password ,credentials.password);
-if(PassCorrection){
-    return user;
-}else{
-throw new Error("Invalid Username or Password")
-}
-
+          const PassCorrection = await bcrypt.compare(
+            user.password,
+            credentials.password
+          );
+          if (PassCorrection) {
+            return user;
+          } else {
+            throw new Error("Invalid Username or Password");
+          }
         } catch (error: any) {
           throw new Error(error.message);
         }
+      },
+    }),
+  ],
+  callbacks: {
+    async session({ session, token }) {
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {token._id = user._id?.toStrig()
       }
-    })
-  ]
+      return token;
+    },
+  },
+  pages: {
+    signIn: "/sign-in",
+  },
+  session: { strategy: "jwt" },
+  secret: process.env.SECRET_KEY_JWT,
 };
