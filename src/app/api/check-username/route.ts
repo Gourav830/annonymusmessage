@@ -10,6 +10,7 @@ const UserNameQuerySchema = z.object({
 });
 
 export async function GET(request: Request) {
+
   await dbConnect();
   try {
     const { searchParams } = new URL(request.url);
@@ -33,14 +34,20 @@ export async function GET(request: Request) {
     }
 
     const { username } = result.data;
-    const noUsername12 =await UserModal.findOne({ username, isVerified: true });
+    const noUsername12 = await UserModal.findOne({
+      username,
+      isVerified: true,
+    });
     if (noUsername12) {
       return Response.json(
         { success: false, message: "username already acquired" },
         { status: 404 }
       );
     }
-    return Response.json({success:true,message:'username available'},{status:200});
+    return Response.json(
+      { success: true, message: "username available" },
+      { status: 200 }
+    );
   } catch (error) {
     console.log("usernaeme error", error);
     return Response.json(
