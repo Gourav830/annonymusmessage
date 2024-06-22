@@ -15,8 +15,8 @@ react:VerificationEmail({username,otp:verifyCode}),
     })
 
     return {success:true,message:' send verification Email'}
-  } catch (Eerror) {
-    console.log("Error sending verification Email",Eerror);
+  } catch (error) {
+    console.log("Error sending verification Email",error);
     return {success:true,message:' send verification Email'}
   }
 }
