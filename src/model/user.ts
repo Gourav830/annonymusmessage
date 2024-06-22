@@ -31,29 +31,32 @@ export interface user extends Document {
 
 const userSchema: Schema<user> = new Schema({
   username: {
-    type:String,
+    type: String,
     required: [true, "username is required"],
     trim: true,
     unique: true,
   },
-  email: {type:String,
+  email: {
+    type: String,
     required: [true, "email is required"],
     unique: true,
     match: [/.+@.+\..+/, "please use a valid email address"],
   },
-  password: { type:String, required: [true, "password is required"] },
-  verifyCode: {type:String,
-    required: [true, "Verification code is required is required"],
-  },
+  password: { type: String, required: [true, "password is required"] },
+  verifyCode: { type: String },
 
-  verifyCodeExp: { type:Date,required:[true,"verify code Expiry is required"]},
-  isVerified: {
-type:Boolean,
-default:false,
+  verifyCodeExp: {
+    type: Date,
   },
-  isAcceptingMsg: { type: Boolean,default:true },
-  messages: [MessageSchema]
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  isAcceptingMsg: { type: Boolean, default: true },
+  messages: [MessageSchema],
 });
 
-const UserModal =(mongoose.models.user as mongoose.Model<user>) || mongoose.model<user>("user",userSchema);
+const UserModal =
+  (mongoose.models.user as mongoose.Model<user>) ||
+  mongoose.model<user>("user", userSchema);
 export default UserModal;
