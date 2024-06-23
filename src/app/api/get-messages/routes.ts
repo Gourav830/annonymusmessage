@@ -29,6 +29,10 @@ export async function GET(request: Request) {
             { status: 404 }
           );
     }
+    return Response.json(
+        { success: true, message: user[0].messages },
+        { status: 200 }
+      );
   } catch (error) {
     return Response.json(
         { success: false, message: "User Not Found" },
