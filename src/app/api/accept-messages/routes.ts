@@ -57,15 +57,24 @@ export async function GET(request: Request) {
     );
   }
   const userId = user._id;
-  const foundUser = await UserModal.findById(userId);
-  if (!foundUser) {
+  try {
+    const foundUser = await UserModal.findById(userId);
+    if (!foundUser) {
+      return Response.json(
+        { success: false, message: "User not found" },
+        { status: 404 }
+      );
+    }
     return Response.json(
-      { success: false, message: "User not found" },
-      { status: 404 }
+      { success: true, isAccceptingMessages: foundUser.isAcceptingMsg },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return Response.json(
+      { success: false, message: "failed to fetch - Error " },
+      { status: 500 }
     );
   }
-  return Response.json(
-    { success: true, isAccceptingMessages: foundUser.isAcceptingMsg },
-    { status: 200 }
-  );
 }
+
