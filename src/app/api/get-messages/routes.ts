@@ -5,15 +5,14 @@ import UserModal from "@/model/user";
 import { User } from "next-auth";
 
 export async function GET(request: Request) {
-await dbConnect();
-const session = await getServerSession(authOptions);
-const user: User = session?.user;
-if (!session || !user) {
-  return Response.json(
-    { success: false, message: "not Authenticated" },
-    { status: 401 }
-  );
-}
-const userId = user._id;
-
+  await dbConnect();
+  const session = await getServerSession(authOptions);
+  const user: User = session?.user;
+  if (!session || !session.user) {
+    return Response.json(
+      { success: false, message: "not Authenticated" },
+      { status: 401 }
+    );
+  }
+  const userId = user._id;
 }

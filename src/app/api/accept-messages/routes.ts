@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   await dbConnect();
   const session = await getServerSession(authOptions);
   const user: User = session?.user;
-  if (!session || !user) {
+  if (!session || !session.user) {
     return Response.json(
       { success: false, message: "not Authenticated" },
       { status: 401 }
