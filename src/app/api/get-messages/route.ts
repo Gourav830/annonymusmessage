@@ -24,19 +24,20 @@ export async function GET(request: Request) {
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
     if (!user || user.length === 0) {
-        return Response.json(
-            { success: false, message: "User Not Found" },
-            { status: 404 }
-          );
-    }
-    return Response.json(
-        { success: true, message: user[0].messages },
-        { status: 200 }
-      );
-  } catch (error) {
-    return Response.json(
+      return Response.json(
         { success: false, message: "User Not Found" },
         { status: 404 }
       );
+    }
+    return Response.json(
+      { success: true, message: user[0].messages },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log("unexpected error",error);
+    return Response.json(
+      { success: false, message: "Server Error" },
+      { status: 500 }
+    );
   }
 }
