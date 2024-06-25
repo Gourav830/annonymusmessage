@@ -12,7 +12,6 @@ const page = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   return (
     <div>
-      bhjkvdfhsgdg
       <>
         <>
           <></>
