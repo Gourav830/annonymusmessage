@@ -8,7 +8,7 @@ import { useDebounceValue } from "usehooks-ts";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { signupSchema } from "@/schemas/signupSchema";
-import axios from 'axios';
+import axios from "axios";
 const Page = () => {
   const [username, setUsername] = useState("");
   const [usernameMesssage, setUsernameMesssage] = useState("");
@@ -28,7 +28,8 @@ const Page = () => {
         setIsCheckingMessage(true);
         setUsernameMesssage("");
         try {
-          await axios.get(`/api/check-username-unique? `)
+          await axios.get(`/api/check-username-unique? `);
+          console.log("hehe wowow enjoying");
         } catch (error) {}
       }
     };
