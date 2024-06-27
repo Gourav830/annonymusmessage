@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { signupSchema } from "@/schemas/signupSchema";
 const Page = () => {
   const [username, setUsername] = useState("");
   const [usernameMesssage, setUsernameMesssage] = useState("");
@@ -15,6 +16,11 @@ const Page = () => {
   const { toast } = useToast();
   const debouncedUsername = useDebounceValue(username, 300);
   const router = useRouter();
+
+  const form = useForm({
+    resolver: zodResolver<z.infer <typeof signupSchema>>(signupSchema),
+    defaultValues: { username: "", email: "", password: "" },
+  });
   return (
     <div>
       <>
