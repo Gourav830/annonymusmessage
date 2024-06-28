@@ -9,6 +9,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { signupSchema } from "@/schemas/signupSchema";
 import axios from "axios";
+import { messageSchema } from "../../../schemas/messageSchema";
+import { ResponseCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 const Page = () => {
   const [username, setUsername] = useState("");
   const [usernameMesssage, setUsernameMesssage] = useState("");
@@ -28,9 +30,17 @@ const Page = () => {
         setIsCheckingMessage(true);
         setUsernameMesssage("");
         try {
-          await axios.get(`/api/check-username-unique? `);
-          console.log("hehe wowow enjoying");
-        } catch (error) {}
+          const response = await axios.get(
+            `/api/check-username-unique? username={debouncedUsername}`
+          );
+          setUsernameMesssage(response.data.message);
+        } catch (error) {
+          const axiosErrors = error as AxiosError<ApiResponse>;
+setUsernameMesssage(axiosErrors.response?.data.message?"Error Checking username")
+
+}finally{
+  checkUsernameUniquie(false);
+}
       }
     };
   }, [debouncedUsername]);
