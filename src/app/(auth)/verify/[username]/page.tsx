@@ -1,3 +1,5 @@
+'use client'
+
 import { useToast } from '@/components/ui/use-toast';
 import { useParams, useRouter } from 'next/navigation';
 import React from 'react';
