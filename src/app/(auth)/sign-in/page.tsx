@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signinSchema } from "@/schemas/loginSchema";
 import { signIn } from "next-auth/react";
-import { DESTRUCTION } from "dns";
+// import { DESTRUCTION } from "dns";
 // import { Button } from "@react-email/components";
 const Page = () => {
  const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,9 +32,13 @@ const Page = () => {
   if(result?.error){
     toast({
       title:'login failed',
-      description:'check username or password',
+      description:'incorrect username or password',
       variant :'destructive'
     })
+  }
+
+  if(result?.url ){
+
   }
   };
   return (
