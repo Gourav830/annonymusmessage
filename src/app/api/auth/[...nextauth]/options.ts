@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!user) {
-            throw new Error("Invalid email or password");
+            throw new Error("Invalid 123 email or password");
           }
           if (!user.isVerified) {
             throw new Error("please Verify Account");
@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
           if (PassCorrection) {
             return user;
           } else {
-            throw new Error("Invalid Username or Password");
+            throw new Error("Invalid 321Username or Password");
           }
         } catch (error: any) {
           throw new Error(error.message);

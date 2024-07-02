@@ -60,7 +60,7 @@ const Page = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Verification Code</FormLabel>
-                      <Input {...field} />
+                      <Input {...field} placeholder='verifiction email' />
                       <FormMessage />
                     </FormItem>
                   )}
