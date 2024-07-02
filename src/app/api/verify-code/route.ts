@@ -9,14 +9,17 @@ export async function POST(request: Request) {
     const { username, code } = await request.json();
     const decodedUsername = decodeURIComponent(username);
     const user = await UserModal.findOne({ username: decodedUsername });
+    // console.log(user.verifyCode);
     if (!user) {
       return Response.json(
         { success: false, message: "Error verifying User" },
         { status: 404 }
       );
     }
+    console.log(user.verifyCode);
 
     const valideCode = user.verifyCode === code;
+    console.log(user.verifyCode);
     const isCodeExpired = new Date(user.verifyCodeExp) > new Date();
     if (valideCode && isCodeExpired) {
       user.isVerified = true;
