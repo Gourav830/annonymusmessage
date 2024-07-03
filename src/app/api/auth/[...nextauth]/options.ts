@@ -30,8 +30,8 @@ export const authOptions: NextAuthOptions = {
             throw new Error("please Verify Account");
           }
           const PassCorrection = await bcrypt.compare(
-            user.password,
-            credentials.password
+           
+            credentials.password, user.password
           );
           if (PassCorrection) {
             return user;
