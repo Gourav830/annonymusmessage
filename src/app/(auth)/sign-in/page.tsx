@@ -3,22 +3,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Link from "next/link";
-// import { useEffect, useState } from "react";
-// import { useDebounceValue } from "usehooks-ts";
+import { useEffect, useState } from "react";
+import { useDebounceValue } from "usehooks-ts";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-// import axios, { AxiosError } from "axios";
-// import { ApiResponse } from "@/types/ApiResponse";
+import axios, { AxiosError } from "axios";
+import { ApiResponse } from "@/types/ApiResponse";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signinSchema } from "@/schemas/loginSchema";
 import { signIn } from "next-auth/react";
 // import { DESTRUCTION } from "dns";
 // import { Button } from "@react-email/components";
 const Page = () => {
-//  const [isSubmitting, setIsSubmitting] = useState(false);
+ const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -29,24 +29,16 @@ const Page = () => {
   
   const onSubmit = async (data: z.infer<typeof signinSchema>) => {
    const result =  await signIn('credentials',{redirect:false,identifier:data.identifier,password:data.password})
-   if (result?.error) {
-    // if (result.error === 'CredentialsSignin') {
-      toast({
-        title: 'Login Failed',
-        description: 'Incorrect username or password',
-        variant: 'destructive',
-      });
-    // } else {
-      toast({
-        title: 'Error',
-        description: result.error,
-        variant: 'destructive',
-   });
-      // }
+  if(result?.error){
+    toast({
+      title:'login failed',
+      description:'incorrect username or password',
+      variant :'destructive'
+    })
   }
 
   if(result?.url ){
-      router.replace('/dashboard') 
+      router.replace('/dashboard')
   }
   };
   return (
@@ -65,15 +57,21 @@ const Page = () => {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email/Username</FormLabel>
+                  <FormLabel>Identifier</FormLabel>
                   <Input
-                  placeholder="Email/Username"
                     {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                    }}
+                   
                   />
-
+                   {/* <p
+                      className={`text-sm ${
+                        usernameMesssage === 'Username is unique'
+                          ? 'text-green-500'
+                          : 'text-red-500'
+                      }`}
+                    >
+                      {usernameMesssage}
+                    </p>
+                  )} */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -86,18 +84,25 @@ const Page = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type="password" {...field} name="password" placeholder="Password"/>
+                  <Input type="password" {...field} name="password" />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className='w-full' >
-             SignIn
+            <Button type="submit" className='w-full' disabled={isSubmitting}>
+           
+                Sign In
+             
             </Button>
           </form>
         </Form>
         <div className="text-center mt-4">
-         
+        <p>
+            Not a member yet?{' '}
+            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
