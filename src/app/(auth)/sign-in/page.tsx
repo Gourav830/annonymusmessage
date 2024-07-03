@@ -38,7 +38,7 @@ const Page = () => {
   }
 
   if(result?.url ){
-
+      router.replace('/dashboard')
   }
   };
   return (
