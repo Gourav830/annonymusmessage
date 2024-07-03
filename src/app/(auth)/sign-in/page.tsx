@@ -48,7 +48,7 @@ const Page = () => {
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Join True Feedback
           </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+          <p className="mb-4">Sign in to start your anonymous adventure</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -60,9 +60,7 @@ const Page = () => {
                   <FormLabel>Identifier</FormLabel>
                   <Input
                     {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                    }}
+                   
                   />
                    {/* <p
                       className={`text-sm ${
@@ -92,19 +90,19 @@ const Page = () => {
               )}
             />
             <Button type="submit" className='w-full' disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                'Sign In'
-              )}
+           
+                Sign In
+             
             </Button>
           </form>
         </Form>
         <div className="text-center mt-4">
-         
+        <p>
+            Not a member yet?{' '}
+            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
