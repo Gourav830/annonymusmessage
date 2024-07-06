@@ -2,22 +2,21 @@ import dbConnect from "@/lib/dbConnect";
 import UserModal from "@/model/user";
 import { z } from "zod";
 import { usernameValidation } from "@/schemas/signupSchema";
-// import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
-// import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
 
-const UserNameQuerySchema = z.object({
+const UsernameQuerySchema = z.object({
   username: usernameValidation,
 });
 
 export async function GET(request: Request) {
-
   await dbConnect();
+
   try {
     const { searchParams } = new URL(request.url);
-    const queryParams = { username: searchParams.get("username") };
-    //zod validation
+    const queryParams = {
+      username: searchParams.get('username'),
+    };
 
-    const result = UserNameQuerySchema.safeParse(queryParams);
+    const result = UsernameQuerySchema.safeParse(queryParams);
 
     if (!result.success) {
       const usernameErrors = result.error.format().username?._errors || [];
@@ -26,34 +25,43 @@ export async function GET(request: Request) {
           success: false,
           message:
             usernameErrors?.length > 0
-              ? usernameErrors.join(",")
-              : "invalid  query parameters",
+              ? usernameErrors.join(', ')
+              : 'Invalid query parameters',
         },
         { status: 400 }
       );
     }
 
     const { username } = result.data;
-    const noUsername12 = await UserModal.findOne({
+
+    const existingVerifiedUser = await UserModal.findOne({
       username,
       isVerified: true,
     });
-    if (noUsername12) {
+
+    if (existingVerifiedUser) {
       return Response.json(
-        { success: false, message: "username already acquired" },
-        { status: 404 }
+        {
+          success: false,
+          message: 'Username is already taken',
+        },
+        { status: 200 }
       );
     }
+
     return Response.json(
-      { success: true, message: "username available" },
+      {
+        success: true,
+        message: 'Username is unique',
+      },
       { status: 200 }
     );
   } catch (error) {
-    console.log("usernaeme error", error);
+    console.error('Error checking username:', error);
     return Response.json(
       {
         success: false,
-        message: "Error checking username",
+        message: 'Error checking username',
       },
       { status: 500 }
     );
