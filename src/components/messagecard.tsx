@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React from 'react';
 import axios, { AxiosError } from 'axios';
 import dayjs from 'dayjs';
 import { X } from 'lucide-react';
@@ -23,7 +23,7 @@ import { ApiResponse } from '@/types/ApiResponse';
 
 type MessageCardProps = {
   message: Message;
-  onMessageDelete: (messageId: string) => void;
+  onMessageDelete: (messageId:any) => void;
 };
 
 export default function MessageCard({ message, onMessageDelete }: MessageCardProps) {
@@ -37,7 +37,7 @@ export default function MessageCard({ message, onMessageDelete }: MessageCardPro
       toast({
         title: response.data.message,
       });
-      // onMessageDelete(message._id);
+      onMessageDelete(message._id);
 
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -57,7 +57,7 @@ export default function MessageCard({ message, onMessageDelete }: MessageCardPro
           <CardTitle>{message.content}</CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant='destructive'>
+              <Button variant="destructive">
                 <X className="w-5 h-5" />
               </Button>
             </AlertDialogTrigger>
