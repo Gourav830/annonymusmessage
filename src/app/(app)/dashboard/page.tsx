@@ -182,10 +182,10 @@ function UserDashboard() {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              // key={message._id}
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
+            key={message._id as string}
+            message={message}
+            onMessageDelete={handleDeleteMessage}
+          />
           ))
         ) : (
           <p>No messages to display.</p>
