@@ -19,7 +19,7 @@ export async function GET(request: Request) {
   try {
     const user = await UserModal.aggregate([
       { $match: { id: userId } },
-      { $unwind: "messages" },
+      { $unwind:{ path: "$messages" } },
       { $sort: { "messages.createdAt": -1 } },
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
