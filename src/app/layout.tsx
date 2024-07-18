@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta name="google-adsense-account" content="ca-pub-8501523101039010"/>
       <AuthProvider>
+      
       <body className={inter.className}>{children}<Toaster /></body>
       </AuthProvider>
     </html>
