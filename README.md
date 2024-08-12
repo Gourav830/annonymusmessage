@@ -1,4 +1,4 @@
-https://annonymusmessage-ettc-lg655cb74-gouravs-projects-999bcded.vercel.app/u/Gourav1323
+https://annonymusmessage-ettc-lg655cb74-gouravs-projects-999bcded.vercel.app
 
 
 
